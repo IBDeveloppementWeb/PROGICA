@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detail du gite
+{% endblock %}
+
+{% block body %}
+	<article class="bg-light p-5 rounded text-center">
+		<img src="{{ gite.image }}" alt="">
+		<h2>{{ gite.nom }}</h2>
+
+		<h6>{{ gite.ville }}
+			-
+			{{ gite.codePostal [:2] }}
+			{{ gite.codePostal [2:] }}
+		</h6>
+		<hr>
+		<div class="content text-center">
+			{{ gite.description }}
+			<hr>
+
+			<table class="table table-striped">
+				<tbody>
+					<tr>
+						<th>Surface</th>
+						<th>{{ gite.surface }}
+							m2</th>
+					</tr>
+					<tr>
+						<th>Nombre de chambre(s)</th>
+						<th>{{ gite.chambre }}
+						</th>
+					</tr>
+					<tr>
+						<th>Nombre de couchage(s)</th>
+						<th>{{ gite.couchage }}
+						</th>
+					</tr>
+					<tr>
+						<th>Animaux acceptés</th>
+						<th>{{ gite.animaux ? 'Oui' : 'Non' }}
+						</th>
+					</tr>
+					{% if gite.animaux == true %}
+						<tr>
+							<th>Tarif Animaux</th>
+							<th>{{ gite.tarifAnimaux }}
+								€ / semaine
+							</th>
+						</tr>
+					{% endif %}
+					<tr>
+						<th>Basse Saison</th>
+						<th>{{ gite.tarifBasseSaison }}
+							€ / semaine</th>
+					</tr>
+					<tr>
+						<th>Haute Saison</th>
+						<th>{{ gite.tarifHauteSaison }}
+							€ / semaine</th>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+	</article>
+{% endblock %}
