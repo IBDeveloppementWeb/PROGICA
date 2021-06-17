@@ -2,8 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\GiteRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\GiteRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=GiteRepository::class)
@@ -19,31 +24,64 @@ class Gite
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Merci de renseigner un nom")
+     * @Assert\Length(
+     *      min=5,
+     *      max=30,
+     *      minMessage= "Le nom doit avoir au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom doit avoir au maximum {{ limit }} caractères")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Merci de renseigner une adresse")
+     * @Assert\Length(
+     *      min=10,
+     *      max=255,
+     *      minMessage= "L'adresse doit avoir au moins {{ limit }} caractères",
+     *      maxMessage = "L'adresse doit avoir au maximum {{ limit }} caractères")
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Merci de renseigner une ville")
+     * @Assert\Length(
+     *      min=2,
+     *      max=50,
+     *      minMessage= "La ville doit avoir au moins {{ limit }} caractères",
+     *      maxMessage = "La ville doit avoir au maximum {{ limit }} caractères")
      */
     private $ville;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Merci de renseigner une surface")
+     * @Assert\Range(
+     *      min=30,
+     *      max=300,
+     *      notInRangeMessage = "La surface doit être comprise entre {{ min }} et {{ max }} m2")
      */
     private $surface;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Merci de renseigner un nombre de chambre")
+     * @Assert\Range(
+     *      min=1,
+     *      max=20,
+     *      notInRangeMessage = "Le nombre de chambres doit être compris entre {{ min }} et {{ max }}")
      */
     private $chambre;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Merci de renseigner un nombre de couchage")
+     * @Assert\Range(
+     *      min=1,
+     *      max=20,
+     *      notInRangeMessage = "Le nombre de couchage doit être compris entre {{ min }} et {{ max }}")
      */
     private $couchage;
 
@@ -54,33 +92,74 @@ class Gite
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Merci de renseigner un tarif")
+     * @Assert\PositiveOrZero(message="Le tarif doit être positif ou égal à zéro")
      */
     private $tarifAnimaux;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Merci de renseigner un tarif")
+     * @Assert\PositiveOrZero(message="Le tarif doit être positif ou égal à zéro")
      */
     private $tarifHauteSaison;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank(message="Merci de renseigner un tarif")
+     * @Assert\PositiveOrZero(message="Le tarif doit être positif ou égal à zéro")
      */
     private $tarifBasseSaison;
 
     /**
      * @ORM\Column(type="string", length=10)
+     * @Assert\NotBlank(message="Merci de renseigner un code postal")
+     * @Assert\Length(
+     *      min=5,
+     *      minMessage = "Le code postal doit avoir {{ min }} chiffres minimum")
      */
     private $codePostal;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Merci de renseigner une description du gite")
+     * @Assert\Length(
+     *      min=10,
+     *      minMessage= "La description doit avoir au moins {{ limit }} caractères")
      */
     private $Description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Merci d'ajouter l'url d'une image'")
+     * @Assert\Url(
+     *    message = "L'url '{{ value }}' n'est pas une url valide",
+     * )
+
      */
     private $image;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $addAt;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Equipement::class, inversedBy="gites")
+     */
+    private $equipements;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Service::class, inversedBy="gites")
+     */
+    private $services;
+
+    public function __construct()
+    {
+        $this->equipements = new ArrayCollection();
+        $this->addAt = new \DateTime();
+        $this->services = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -239,6 +318,66 @@ class Gite
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getAddAt(): ?\DateTimeInterface
+    {
+        return $this->addAt;
+    }
+
+    public function setAddAt(\DateTimeInterface $addAt): self
+    {
+        $this->addAt = $addAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Equipement[]
+     */
+    public function getEquipements(): Collection
+    {
+        return $this->equipements;
+    }
+
+    public function addEquipement(Equipement $equipement): self
+    {
+        if (!$this->equipements->contains($equipement)) {
+            $this->equipements[] = $equipement;
+        }
+
+        return $this;
+    }
+
+    public function removeEquipement(Equipement $equipement): self
+    {
+        $this->equipements->removeElement($equipement);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Service[]
+     */
+    public function getServices(): Collection
+    {
+        return $this->services;
+    }
+
+    public function addService(Service $service): self
+    {
+        if (!$this->services->contains($service)) {
+            $this->services[] = $service;
+        }
+
+        return $this;
+    }
+
+    public function removeService(Service $service): self
+    {
+        $this->services->removeElement($service);
 
         return $this;
     }

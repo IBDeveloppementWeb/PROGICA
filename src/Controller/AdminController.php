@@ -15,12 +15,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminController extends AbstractController
 {
-    private GiteRepository $giteRepository;
+    private GiteRepository $repo;
     private EntityManagerInterface $em;
 
-    public function __construct(GiteRepository $giteRepository, EntityManagerInterface $em)
+    public function __construct(GiteRepository $repo, EntityManagerInterface $em)
     {
-        $this->giteRepository = $giteRepository;
+        $this->repo = $repo;
         $this->em = $em;
     }
     /**
@@ -30,9 +30,7 @@ class AdminController extends AbstractController
     public function index(Request $request, PaginatorInterface $paginator): Response
     {
 
-        $repo = $this->getDoctrine()->getRepository(Gite::class);
-
-        $data = $repo->findAll();
+        $data = $this->repo->findAll();
 
         $gites = $paginator->paginate(
             $data,
@@ -67,13 +65,12 @@ class AdminController extends AbstractController
     }
 
     /**
-     *  @Route("/admin/edit", name="admin_edit")
+     *  @Route("/admin/edit/{id}", name="admin.edit", methods="GET|POST")
      */
     public function edit($id, Request $request)
     {
-        $repo = $this->getDoctrine()->getRepository(Gite::class);
 
-        $gite = $repo->find($id);
+        $gite = $this->repo->find($id);
 
         $form = $this->createForm(GiteType::class, $gite);
         $form->handleRequest($request);
@@ -81,7 +78,7 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($gite);
             $this->em->flush();
-            return $this->redirectToRoute('admin_edit');
+            return $this->redirectToRoute('admin.index');
         }
         return $this->render('admin/edit.html.twig', [
             'controller_name' => 'AdminController',

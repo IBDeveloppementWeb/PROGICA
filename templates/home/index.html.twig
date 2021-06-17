@@ -8,7 +8,36 @@
 		<h1>Bienvenue chez PROGICA</h1>
 		<hr>
 		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque autem rem deserunt earum fugit molestiae omnis, magnam, ducimus ullam nobis consectetur, facere distinctio? Praesentium expedita voluptate possimus eveniet pariatur magni.
-								Facere, consectetur? Quo deleniti, vero enim distinctio repellendus sapiente aliquam, architecto iste accusamus iure voluptatibus minima voluptate eveniet, ut suscipit eaque. A illum odit laborum quidem. Non mollitia ut expedita!
-								Eius animi dolorem repudiandae expedita iusto quibusdam qui fugit natus perferendis corrupti, iure aliquid sapiente excepturi nemo nulla cum saepe ducimus incidunt beatae voluptas veniam?</p>
+																																																																							Facere, consectetur? Quo deleniti, vero enim distinctio repellendus sapiente aliquam, architecto iste accusamus iure voluptatibus minima voluptate eveniet, ut suscipit eaque. A illum odit laborum quidem. Non mollitia ut expedita!
+																																																																							Eius animi dolorem repudiandae expedita iusto quibusdam qui fugit natus perferendis corrupti, iure aliquid sapiente excepturi nemo nulla cum saepe ducimus incidunt beatae voluptas veniam?</p>
+
+		<hr>
+		<h2>Nos derniers gites</h2>
+
+		<div class="row row-cols-1 row-cols-md-3 g-3">
+			{% for gite in gites %}
+				<div class="col">
+					<div class="card">
+						<img src="{{gite.image}}" class="card-img-top" alt="...">
+						<h3 class="card-title">{{ gite.nom }}</h3>
+						<h5>{{ gite.ville }}
+							-
+							{{ gite.codePostal [:2] }}
+							{{ gite.codePostal [2:] }}
+						</h5>
+						<div class="card-body">
+							<p>{{ (gite.description|length > 80 ? gite.description|slice(0, 80) ~ '…' : gite.description) }}</p>
+							<h6>Ajouté le
+								{{gite.addAt|format_datetime('short', 'none', locale='fr') }}</h6>
+							<a href="{{ path('gite_show', {'id': gite.id}) }}" class="btn btn-success">Voir le gite</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+
+		</div>
+		<hr>
+		<a href="{{ path('gite') }}" class="btn btn-warning">Voir tous les gites</a>
+
 	</div>
 {% endblock %}

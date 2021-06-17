@@ -58,6 +58,21 @@
 						<th>{{ gite.tarifHauteSaison }}
 							€ / semaine</th>
 					</tr>
+					<tr>
+						<th>Equipements disponibles
+							{% for equipement in gite.equipements %}
+								<li>{{equipement.nom}}</li>
+							{% endfor %}
+						</th>
+						<th>Services disponibles
+							{% for service in gite.services %}
+								<li>{{service.nom}}
+									-
+									{{service.tarif}}
+									€</li>
+							{% endfor %}
+						</th>
+					</tr>
 				</tbody>
 
 			</table>

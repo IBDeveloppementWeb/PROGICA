@@ -19,22 +19,19 @@ class GiteRepository extends ServiceEntityRepository
         parent::__construct($registry, Gite::class);
     }
 
-    // /**
-    //  * @return Query
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Gite [] Retourne un tableau d'objects Gite
+     */
+
+    public function findLatestGite()
     {
         return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('g.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('g.addAt', 'DESC')
+            ->setMaxResults(3)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
+
 
     /*
     public function findOneBySomeField($value): ?Gite

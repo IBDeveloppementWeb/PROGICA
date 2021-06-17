@@ -22,8 +22,8 @@
 						<th>{{gite.nom}}</th>
 						<th>{{gite.ville}}</th>
 						<th>
-							<a href="{{ path('admin_edit', {'id': gite.id}) }}" class="btn btn-primary">Editer</a>
-							<a href="" class="btn btn-danger">Supprimer</a>
+							<a href="{{ path('admin.edit', {'id': gite.id}) }}" class="btn btn-primary">Editer</a>
+
 						</th>
 					</tr>
 				{% endfor %}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Gite;
 use App\Entity\GiteSearch;
 use App\Form\GiteSearchType;
+use App\Repository\GiteRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +14,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class GiteController extends AbstractController
 {
+
+    private GiteRepository $repo;
+
+    public function __construct(GiteRepository $repo)
+    {
+        $this->repo = $repo;
+    }
+
     /**
      * @Route("/gite", name="gite")
      */
@@ -25,9 +34,7 @@ class GiteController extends AbstractController
         $form = $this->createForm(GiteSearchType::class, $search);
         $form->handleRequest($request);
 
-        $repo = $this->getDoctrine()->getRepository(Gite::class);
-
-        $data = $repo->findAll();
+        $data = $this->repo->findAll();
 
         $gites = $paginator->paginate(
             $data,
@@ -50,9 +57,7 @@ class GiteController extends AbstractController
     public function show($id): Response
     {
 
-        $repo = $this->getDoctrine()->getRepository(Gite::class);
-
-        $gite = $repo->find($id);
+        $gite = $this->repo->find($id);
 
         return $this->render('gite/show.html.twig', [
             'controller_name' => 'GiteController',

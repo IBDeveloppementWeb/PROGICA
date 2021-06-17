@@ -34,14 +34,16 @@
 				<div class="col">
 					<div class="card">
 						<img src="{{gite.image}}" class="card-img-top" alt="...">
-						<h4 class="card-title">{{ gite.nom }}</h4>
-						<h6>{{ gite.ville }}
+						<h3 class="card-title">{{ gite.nom }}</h3>
+						<h5>{{ gite.ville }}
 							-
 							{{ gite.codePostal [:2] }}
 							{{ gite.codePostal [2:] }}
-						</h6>
+						</h5>
 						<div class="card-body">
 							<p>{{ (gite.description|length > 80 ? gite.description|slice(0, 80) ~ '…' : gite.description) }}</p>
+							<h6>Ajouté le
+								{{gite.addAt|format_datetime('short', 'none', locale='fr') }}</h6>
 							<a href="{{ path('gite_show', {'id': gite.id}) }}" class="btn btn-success">Voir le gite</a>
 						</div>
 					</div>
