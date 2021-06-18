@@ -3,13 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Gite;
+use App\Entity\Service;
 use App\Entity\Equipement;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -71,6 +71,13 @@ class GiteType extends AbstractType
             ->add('equipements', EntityType::class, [
                 'class' => Equipement::class,
                 'label' => 'Equipements disponibles',
+                'choice_label' => 'nom',
+                'multiple' => true,
+                'expanded' => true
+            ])
+            ->add('services', EntityType::class, [
+                'class' => Service::class,
+                'label' => 'Services proposés',
                 'choice_label' => 'nom',
                 'multiple' => true,
                 'expanded' => true

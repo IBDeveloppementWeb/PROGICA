@@ -6,6 +6,22 @@
 {% block body %}
 	<h1>Administration des gites PROGICA</h1>
 
+	{% for message in app.flashes('success') %}
+		<div class="alert alert-success">
+			{{ message }}
+		</div>
+	{% endfor %}
+	{% for message in app.flashes('primary') %}
+		<div class="alert alert-primary">
+			{{ message }}
+		</div>
+	{% endfor %}
+	{% for message in app.flashes('danger') %}
+		<div class="alert alert-danger">
+			{{ message }}
+		</div>
+	{% endfor %}
+
 	<a href="{{ path('admin.new') }}" class="btn btn-success">Ajouter un gite</a>
 	<div class="row">
 		<table class="table table-striped">
@@ -23,7 +39,7 @@
 						<th>{{gite.ville}}</th>
 						<th>
 							<a href="{{ path('admin.edit', {'id': gite.id}) }}" class="btn btn-primary">Editer</a>
-
+							<a href="{{ path('admin.delete', {'id': gite.id}) }}" class="btn btn-danger">Supprimer</a>
 						</th>
 					</tr>
 				{% endfor %}

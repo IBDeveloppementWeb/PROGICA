@@ -45,7 +45,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     *  @Route("/admin/new", name="admin.new")
+     *  @Route("/admin/new", name="admin.new", methods="GET|POST")
      */
     public function new(Request $request)
     {
@@ -56,6 +56,8 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($gite);
             $this->em->flush();
+            $this->addFlash('success', 'Bien ajouté avec succès');
+
             return $this->redirectToRoute('admin.index');
         }
         return $this->render('admin/new.html.twig', [
@@ -78,6 +80,8 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->em->persist($gite);
             $this->em->flush();
+            $this->addFlash('primary', 'Bien modifié avec succès');
+
             return $this->redirectToRoute('admin.index');
         }
         return $this->render('admin/edit.html.twig', [
@@ -85,5 +89,20 @@ class AdminController extends AbstractController
             'gite' => $gite,
             'formGite'  => $form->createView()
         ]);
+    }
+
+    /**
+     *  @Route("/admin/delete/{id}", name="admin.delete")
+     */
+    public function delete($id)
+    {
+
+        $gite = $this->repo->find($id);
+
+        $this->em->remove($gite);
+        $this->em->flush();
+        $this->addFlash('danger', 'Bien supprimé avec succès');
+
+        return $this->redirectToRoute('admin.index');
     }
 }
