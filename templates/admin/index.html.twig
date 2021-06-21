@@ -4,51 +4,55 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Administration des gites PROGICA</h1>
+	<div class="bg-light p-5 rounded">
+		<h1>Administration des gites PROGICA</h1>
 
-	{% for message in app.flashes('success') %}
-		<div class="alert alert-success">
-			{{ message }}
-		</div>
-	{% endfor %}
-	{% for message in app.flashes('primary') %}
-		<div class="alert alert-primary">
-			{{ message }}
-		</div>
-	{% endfor %}
-	{% for message in app.flashes('danger') %}
-		<div class="alert alert-danger">
-			{{ message }}
-		</div>
-	{% endfor %}
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('primary') %}
+			<div class="alert alert-primary">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('danger') %}
+			<div class="alert alert-danger">
+				{{ message }}
+			</div>
+		{% endfor %}
 
-	<a href="{{ path('admin.new') }}" class="btn btn-success">Ajouter un gite</a>
-	<div class="row">
-		<table class="table table-striped">
-			<thead>
-				<th>ID</th>
-				<th>NOM</th>
-				<th>VILLE</th>
-				<th>ACTION</th>
-			</thead>
-			<tbody>
-				{% for gite in gites %}
-					<tr>
-						<th>#{{gite.id}}</th>
-						<th>{{gite.nom}}</th>
-						<th>{{gite.ville}}</th>
-						<th>
-							<a href="{{ path('admin.edit', {'id': gite.id}) }}" class="btn btn-primary">Editer</a>
-							<a href="{{ path('admin.delete', {'id': gite.id}) }}" class="btn btn-danger">Supprimer</a>
-						</th>
-					</tr>
-				{% endfor %}
+		<a href="{{ path('admin.new') }}" class="btn btn-success">Ajouter un gite</a>
+		<div class="row">
+			<table class="table table-striped">
+				<thead>
+					<th>ID</th>
+					<th>NOM</th>
+					<th>VILLE</th>
+					<th>DESCRIPTION</th>
+					<th>ACTION</th>
+				</thead>
+				<tbody>
+					{% for gite in gites %}
+						<tr>
+							<th>#{{gite.id}}</th>
+							<th>{{gite.nom}}</th>
+							<th>{{gite.ville}}</th>
+							<th>{{ (gite.description|length > 100 ? gite.description|slice(0, 100) ~ '…' : gite.description) }}</th>
+							<th>
+								<a href="{{ path('admin.edit', {'id': gite.id}) }}" class="btn btn-primary">Editer</a>
+								<a href="{{ path('admin.delete', {'id': gite.id}) }}" class="btn btn-danger">Supprimer</a>
+							</th>
+						</tr>
+					{% endfor %}
 
-			</tbody>
-		</table>
-	</div>
-	<div class="d-flex justify-content-center">
-		{% do gites.setPageRange(2) %}
-		{{ knp_pagination_render(gites, 'pagination.html.twig') }}
+				</tbody>
+			</table>
+		</div>
+		<div class="d-flex justify-content-center">
+			{% do gites.setPageRange(2) %}
+			{{ knp_pagination_render(gites, 'pagination.html.twig') }}
+		</div>
 	</div>
 {% endblock %}

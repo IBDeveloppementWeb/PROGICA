@@ -73,14 +73,12 @@ class GiteFixtures extends Fixture
         $services = [];
 
         $service = new Service;
-        $service->setNom("Location de Vélo")
-            ->setTarif(20);
+        $service->setNom("Location de Vélo");
 
         $manager->persist($service);
 
         $service1 = new Service;
-        $service1->setNom("Ménage")
-            ->setTarif(50);
+        $service1->setNom("Ménage");
 
         $manager->persist($service1);
 

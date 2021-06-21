@@ -4,72 +4,74 @@
 {% endblock %}
 
 {% block body %}
+	<div class="bg-light p-5 rounded">
 
-	<div class="clss row">
-		<h1>Ajouter un Gite</h1>
-	</div>
+		<div class="clss row">
+			<h1>Ajouter un Gite</h1>
+		</div>
 
-	<div class="row">
-		{{ form_start(formGite) }}
 		<div class="row">
-			<div class="col-md-12">
-				{{form_row(formGite.nom)}}</div>
+			{{ form_start(formGite) }}
+			<div class="row">
+				<div class="col-md-12">
+					{{form_row(formGite.nom)}}</div>
 
 
+			</div>
+
+			<div class="row">
+				<div class="col-md-4">
+					{{form_row(formGite.adresse)}}</div>
+				<div class="col-md-4">
+					{{form_row(formGite.ville)}}</div>
+				<div class="col-md-4">
+					{{form_row(formGite.codePostal)}}</div>
+
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				{{form_row(formGite.description)}}</div>
+			<div class="col-md-4 md-4">
+				{{form_row(formGite.image)}}</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				{{form_row(formGite.surface)}}</div>
+			<div class="col-md-4">
+				{{form_row(formGite.chambre)}}</div>
+			<div class="col-md-4">
+				{{form_row(formGite.couchage)}}</div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-4">
-				{{form_row(formGite.adresse)}}</div>
+				{{form_row(formGite.tarifBasseSaison)}}</div>
 			<div class="col-md-4">
-				{{form_row(formGite.ville)}}</div>
+				{{form_row(formGite.tarifHauteSaison)}}</div>
 			<div class="col-md-4">
-				{{form_row(formGite.codePostal)}}</div>
-
-
+				{{form_row(formGite.tarifAnimaux)}}</div>
 		</div>
-	</div>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				{{form_row(formGite.animaux)}}</div>
+		</div>
 
-	<div class="row">
-		<div class="col-md-8">
-			{{form_row(formGite.description)}}</div>
-		<div class="col-md-4 md-4">
-			{{form_row(formGite.image)}}</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4">
-			{{form_row(formGite.surface)}}</div>
-		<div class="col-md-4">
-			{{form_row(formGite.chambre)}}</div>
-		<div class="col-md-4">
-			{{form_row(formGite.couchage)}}</div>
-	</div>
+		<div class="row">
+			<div class="col-md-4">
+				{{form_row(formGite.equipements)}}</div>
+			<div class="col-md-4">{{form_row(formGite.services)}}</div>
 
-	<div class="row">
-		<div class="col-md-4">
-			{{form_row(formGite.tarifBasseSaison)}}</div>
-		<div class="col-md-4">
-			{{form_row(formGite.tarifHauteSaison)}}</div>
-		<div class="col-md-4">
-			{{form_row(formGite.tarifAnimaux)}}</div>
+			<div class="col-md-4"></div>
+		</div>
+
+		<input type="submit" value="Créer" class="btn btn-success">
+
+		{{ form_end(formGite) }}
 	</div>
-	<div class="row">
-		<div class="col-md-4"></div>
-		<div class="col-md-4"></div>
-		<div class="col-md-4">
-			{{form_row(formGite.animaux)}}</div>
-	</div>
-
-	<div class="row">
-		<div class="col-md-4">
-			{{form_row(formGite.equipements)}}</div>
-		<div class="col-md-4">{{form_row(formGite.services)}}</div>
-
-		<div class="col-md-4"></div>
-	</div>
-
-	<input type="submit" value="Créer" class="btn btn-primary">
-
-	{{ form_end(formGite) }}
 
 </div>{% endblock %}

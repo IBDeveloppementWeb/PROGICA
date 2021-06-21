@@ -4,55 +4,64 @@
 {% endblock %}
 
 {% block body %}
-	<div class="bg-light p-5 rounded text-center">
-		<h1>Nos gites</h1>
-		<hr>
-		<div class="bg-light p-5 rounded text-center">
+	<div class="bg-light p-5 rounded">
+		<div class="bg-light text-center">
+			<h1>Nos gites</h1>
+		</div>
+		<div class="bg-dark p-5 rounded text-white mb-1">
 			{{ form_start(form)}}
 			<div class="row">
-				<div class="col">
+				<div class="col-4">
 					{{ form_row(form.minSurface) }}
 				</div>
-				<div class="col">
+				<div class="col-4">
 					{{ form_row(form.minChambre) }}
 				</div>
-				<div class="col">
+				<div class="col-4">
 					{{ form_row(form.minCouchage) }}
 				</div>
-				<div class="col">
+
+				<div class="col-4">
 					{{ form_row(form.maxTarif) }}
 				</div>
-
-				<div class="col">
-					<button class="btn btn-primary">Recherche</button>
-				</div>
-			</div>
-			{{ form_end(form)}}
-		</div>
-		<div class="row row-cols-1 row-cols-md-3 g-3">
-			{% for gite in gites %}
-				<div class="col">
-					<div class="card">
-						<img src="{{gite.image}}" class="card-img-top" alt="...">
-						<h3 class="card-title">{{ gite.nom }}</h3>
-						<h5>{{ gite.ville }}
-							-
-							{{ gite.codePostal [:2] }}
-							{{ gite.codePostal [2:] }}
-						</h5>
-						<div class="card-body">
-							<p>{{ (gite.description|length > 80 ? gite.description|slice(0, 80) ~ '…' : gite.description) }}</p>
-							<h6>Ajouté le
-								{{gite.addAt|format_datetime('short', 'none', locale='fr') }}</h6>
-							<a href="{{ path('gite_show', {'id': gite.id}) }}" class="btn btn-success">Voir le gite</a>
-						</div>
+				<div class="col-4">
+					<h6>Filtrer par equipement :</h6>
+					{{ form(form.equipements) }}
+					</div>
+					<div class="col-4">
+						<button class="btn btn-light">Filter les gites</button>
 					</div>
 				</div>
-			{% endfor %}
+				{{ form_end(form)}}
+			</div>
+			<div class="bg-light text-center">
+
+				<div class="row row-cols-1 row-cols-md-3 g-3">
+					{% for gite in gites %}
+						<div class="col">
+							<div class="card">
+								<img src="{{gite.image}}" class="card-img-top" alt="...">
+								<h3 class="card-title">{{ gite.nom }}</h3>
+								<h5>{{ gite.ville }}
+									-
+									{{ gite.codePostal [:2] }}
+									{{ gite.codePostal [2:] }}
+								</h5>
+								<div class="card-body">
+									<p>{{ (gite.description|length > 80 ? gite.description|slice(0, 80) ~ '…' : gite.description) }}</p>
+									<h6>Ajouté le
+										{{gite.addAt|format_datetime('short', 'none', locale='fr') }}</h6>
+									<a href="{{ path('gite_show', {'id': gite.id}) }}" class="btn btn-dark">Voir le gite</a>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+				<hr>
+			</div>
+			<div class="d-flex justify-content-center">
+				{% do gites.setPageRange(2) %}
+				{{ knp_pagination_render(gites, 'pagination.html.twig') }}
+			</div>
 		</div>
-		<div class="d-flex justify-content-center">
-			{% do gites.setPageRange(2) %}
-			{{ knp_pagination_render(gites, 'pagination.html.twig') }}
-		</div>
-	</div>
-{% endblock %}
+	{% endblock %}

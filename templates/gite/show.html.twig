@@ -4,8 +4,9 @@
 {% endblock %}
 
 {% block body %}
+
 	<article class="bg-light p-5 rounded text-center">
-		<img src="{{ gite.image }}" alt="">
+		<img src="{{ gite.image }}" style="width:1200px;height:600px;" alt="">
 		<h2>{{ gite.nom }}</h2>
 
 		<h6>{{ gite.ville }}
@@ -66,10 +67,7 @@
 						</th>
 						<th>Services disponibles
 							{% for service in gite.services %}
-								<li>{{service.nom}}
-									-
-									{{service.tarif}}
-									€</li>
+								<li>{{service.nom}}</li>
 							{% endfor %}
 						</th>
 					</tr>

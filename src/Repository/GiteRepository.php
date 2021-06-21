@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Gite;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\GiteSearch;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Gite|null find($id, $lockMode = null, $lockVersion = null)
@@ -33,15 +34,42 @@ class GiteRepository extends ServiceEntityRepository
     }
 
 
-    /*
-    public function findOneBySomeField($value): ?Gite
+
+    public function findBySomeField(GiteSearch $search)
     {
-        return $this->createQueryBuilder('g')
-            ->andWhere('g.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $query = $this->createQueryBuilder('g');
+
+        if ($search->getMinSurface()) {
+            $query = $query
+                ->andWhere('g.surface >= :minSurface')
+                ->setParameter('minSurface', $search->getMinSurface());
+        }
+        if ($search->getMinChambre()) {
+            $query = $query
+                ->andWhere('g.chambre >= :minChambre')
+                ->setParameter('minChambre', $search->getMinChambre());
+        }
+        if ($search->getMinCouchage()) {
+            $query = $query
+                ->andWhere('g.couchage >= :minCouchage')
+                ->setParameter('minCouchage', $search->getMinCouchage());
+        }
+        if ($search->getMaxTarif()) {
+            $query = $query
+                ->andWhere('g.tarifBasseSaison <= :maxTarif')
+                ->setParameter('maxTarif', $search->getMaxTarif());
+        }
+
+        if ($search->getEquipements()->count() > 0) {
+            $k = 0;
+            foreach ($search->getEquipements() as $equipement) {
+                $k++;
+                $query = $query
+                    ->andWhere(":equipement$k MEMBER OF g.equipements")
+                    ->setParameter("equipement$k", $equipement);
+            }
+        }
+
+        return $query->getQuery()->getResult();
     }
-    */
 }

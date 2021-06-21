@@ -25,11 +25,6 @@ class Service
     private $nom;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $tarif;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Gite::class, mappedBy="services")
      */
     private $gites;
@@ -52,18 +47,6 @@ class Service
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getTarif(): ?int
-    {
-        return $this->tarif;
-    }
-
-    public function setTarif(int $tarif): self
-    {
-        $this->tarif = $tarif;
 
         return $this;
     }

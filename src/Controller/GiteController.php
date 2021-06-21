@@ -34,7 +34,7 @@ class GiteController extends AbstractController
         $form = $this->createForm(GiteSearchType::class, $search);
         $form->handleRequest($request);
 
-        $data = $this->repo->findAll();
+        $data = $this->repo->findBySomeField($search);
 
         $gites = $paginator->paginate(
             $data,

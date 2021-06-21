@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 
 class GiteSearch
 {
@@ -25,6 +26,16 @@ class GiteSearch
      * @var int|null
      */
     private $maxTarif;
+
+    /**
+     * @var ArrayCollection
+     */
+    private $equipements;
+
+    public function __construct()
+    {
+        $this->equipements = new ArrayCollection();
+    }
 
     /**
      * Get the value of minSurface
@@ -118,6 +129,30 @@ class GiteSearch
     public function setMaxTarif($maxTarif)
     {
         $this->maxTarif = $maxTarif;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of equipements
+     *
+     * @return  ArrayCollection
+     */
+    public function getEquipements()
+    {
+        return $this->equipements;
+    }
+
+    /**
+     * Set the value of equipements
+     *
+     * @param  ArrayCollection  $equipements
+     *
+     * @return  self
+     */
+    public function setEquipements(ArrayCollection $equipements)
+    {
+        $this->equipements = $equipements;
 
         return $this;
     }
