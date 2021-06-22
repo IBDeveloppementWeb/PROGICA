@@ -28,6 +28,11 @@ class GiteSearch
     private $maxTarif;
 
     /**
+     * @var boolean|null
+     */
+    private $animaux;
+
+    /**
      * @var ArrayCollection
      */
     private $equipements;
@@ -153,6 +158,30 @@ class GiteSearch
     public function setEquipements(ArrayCollection $equipements)
     {
         $this->equipements = $equipements;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of animaux
+     *
+     * @return  boolean|null
+     */
+    public function getAnimaux()
+    {
+        return $this->animaux;
+    }
+
+    /**
+     * Set the value of animaux
+     *
+     * @param  boolean|null  $animaux
+     *
+     * @return  self
+     */
+    public function setAnimaux($animaux)
+    {
+        $this->animaux = $animaux;
 
         return $this;
     }

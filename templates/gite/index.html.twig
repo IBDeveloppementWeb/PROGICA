@@ -11,24 +11,29 @@
 		<div class="bg-dark p-5 rounded text-white mb-1">
 			{{ form_start(form)}}
 			<div class="row">
-				<div class="col-4">
+				<div class="col-3">
 					{{ form_row(form.minSurface) }}
 				</div>
-				<div class="col-4">
+				<div class="col-3">
 					{{ form_row(form.minChambre) }}
 				</div>
-				<div class="col-4">
+				<div class="col-3">
 					{{ form_row(form.minCouchage) }}
 				</div>
 
-				<div class="col-4">
+				<div class="col-3">
 					{{ form_row(form.maxTarif) }}
 				</div>
-				<div class="col-4">
+				<div class="col-3">
 					<h6>Filtrer par equipement :</h6>
 					{{ form(form.equipements) }}
 					</div>
-					<div class="col-4">
+					<div class="col-3">
+						{{ form_row(form.animaux) }}
+					</div>
+					<div class="col-3"></div>
+
+					<div class="col-3">
 						<button class="btn btn-light">Filter les gites</button>
 					</div>
 				</div>

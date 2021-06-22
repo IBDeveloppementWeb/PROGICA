@@ -59,7 +59,11 @@ class GiteRepository extends ServiceEntityRepository
                 ->andWhere('g.tarifBasseSaison <= :maxTarif')
                 ->setParameter('maxTarif', $search->getMaxTarif());
         }
-
+        if ($search->getAnimaux()) {
+            $query = $query
+                ->andWhere('g.animaux = :animaux')
+                ->setParameter('animaux', $search->getAnimaux());
+        }
         if ($search->getEquipements()->count() > 0) {
             $k = 0;
             foreach ($search->getEquipements() as $equipement) {
@@ -69,7 +73,6 @@ class GiteRepository extends ServiceEntityRepository
                     ->setParameter("equipement$k", $equipement);
             }
         }
-
         return $query->getQuery()->getResult();
     }
 }

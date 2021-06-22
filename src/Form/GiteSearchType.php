@@ -3,15 +3,20 @@
 namespace App\Form;
 
 use Attribute;
+use App\Entity\Gite;
 use App\Entity\Service;
 use App\Entity\Equipement;
 use App\Entity\GiteSearch;
+use Doctrine\DBAL\Types\StringType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class GiteSearchType extends AbstractType
 {
@@ -46,15 +51,15 @@ class GiteSearchType extends AbstractType
                     'placeholder' => 'Tarif maximum'
                 ]
             ])
+            ->add('animaux', CheckboxType::class, [
+                'required' => false,
+                'label' => 'Animaux acceptés'
+            ])
             ->add('equipements', EntityType::class, [
                 'required' => false,
                 'class' => Equipement::class,
                 'choice_label' => 'nom',
-                'multiple' => true,
-                'expanded' => true,
-                'attr' => [
-                    'class' => 'selectpicker'
-                ]
+                'multiple' => true
             ]);
     }
 
