@@ -5,7 +5,7 @@
 
 {% block body %}
 	<div class="bg-light p-5 rounded">
-		<h1>Administration des gites PROGICA</h1>
+		<h1>Liste des gites PROGICA</h1>
 
 		{% for message in app.flashes('success') %}
 			<div class="alert alert-success">
@@ -41,7 +41,7 @@
 							<th>{{gite.ville}}</th>
 							<th>{{ (gite.description|length > 100 ? gite.description|slice(0, 100) ~ '…' : gite.description) }}</th>
 							<th>
-								<a href="{{ path('admin.edit', {'id': gite.id}) }}" class="btn btn-primary">Editer</a>
+								<a href="{{ path('admin.edit', {'id': gite.id}) }}" class="btn btn-primary">Modifier</a>
 								<a href="{{ path('admin.delete', {'id': gite.id}) }}" class="btn btn-danger">Supprimer</a>
 							</th>
 						</tr>
@@ -50,6 +50,7 @@
 				</tbody>
 			</table>
 		</div>
+
 		<div class="d-flex justify-content-center">
 			{% do gites.setPageRange(2) %}
 			{{ knp_pagination_render(gites, 'pagination.html.twig') }}

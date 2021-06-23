@@ -35,7 +35,7 @@
 			<div class="col-md-8">
 				{{form_row(formGite.description)}}</div>
 			<div class="col-md-4 md-4">
-				{{form_row(formGite.image)}}</div>
+				{{form_row(formGite.imageFile)}}</div>
 		</div>
 		<div class="row">
 			<div class="col-md-4">
@@ -72,6 +72,8 @@
 		<input type="submit" value="Créer" class="btn btn-success">
 
 		{{ form_end(formGite) }}
+		<a href="{{ path('admin.index') }}" class="btn btn-dark">Retourner à la liste</a>
+
 	</div>
 
 </div>{% endblock %}

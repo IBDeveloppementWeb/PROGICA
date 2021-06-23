@@ -8,10 +8,13 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\GiteRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=GiteRepository::class)
+ * @Vich\Uploadable
  */
 class Gite
 {
@@ -130,16 +133,6 @@ class Gite
     private $Description;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Merci d'ajouter l'url d'une image'")
-     * @Assert\Url(
-     *    message = "L'url '{{ value }}' n'est pas une url valide",
-     * )
-
-     */
-    private $image;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $addAt;
@@ -154,11 +147,34 @@ class Gite
      */
     private $services;
 
+    /**
+     * @var File|null
+     * @Vich\UploadableField(mapping="gite_image", fileNameProperty="imageName")
+     */
+    private $imageFile;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Image(
+     *      mimeTypes={"image/jpeg", "image/png"},
+     *      mimeTypesMessage=" L'image doit avoir les formats {{types}}")
+     */
+    private $imageName;
+
+    /**
+     * @ORM\Column(type="datetime", nullable="true")
+     * 
+     * @var \DateTimeInterface|null
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->equipements = new ArrayCollection();
         $this->addAt = new \DateTime();
         $this->services = new ArrayCollection();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -310,17 +326,6 @@ class Gite
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 
     public function getAddAt(): ?\DateTimeInterface
     {
@@ -378,6 +383,82 @@ class Gite
     public function removeService(Service $service): self
     {
         $this->services->removeElement($service);
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imageFile
+     *
+     * @return  File|null
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * Set the value of imageFile
+     *
+     * @param  File|null  $imageFile
+     *
+     * @return  self
+     */
+    public function setImageFile($imageFile)
+    {
+        $this->imageFile = $imageFile;
+
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imageName
+     *
+     * @return  string|null
+     */
+    public function getImageName()
+    {
+        return $this->imageName;
+    }
+
+    /**
+     * Set the value of imageName
+     *
+     * @param  string|null  $imageName
+     *
+     * @return  self
+     */
+    public function setImageName($imageName)
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of updatedAt
+     *
+     * @return  \DateTimeInterface|null
+     */
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set the value of updatedAt
+     *
+     * @param  \DateTimeInterface|null  $updatedAt
+     *
+     * @return  self
+     */
+    public function setUpdatedAt(\DateTimeInterface $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

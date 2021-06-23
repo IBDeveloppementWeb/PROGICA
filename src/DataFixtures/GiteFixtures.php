@@ -86,7 +86,7 @@ class GiteFixtures extends Fixture
 
         $manager->flush();
 
-        for ($i = 1; $i < 50; $i++) {
+        for ($i = 1; $i < 100; $i++) {
             $gite = new Gite;
             $gite
                 ->setNom('Gite n°' . $i)
@@ -102,7 +102,9 @@ class GiteFixtures extends Fixture
                 ->setTarifHauteSaison($faker->randomFloat(0, 500, 1200))
                 ->setDescription($faker->paragraphs(5, true))
                 ->setAddAt($faker->dateTimeThisYear())
-                ->setImage('https://picsum.photos/400/200?random=' . $faker->numberBetween(2, 500))
+                ->addEquipement($faker->randomElement($equipements))
+                ->addEquipement($faker->randomElement($equipements))
+                ->addEquipement($faker->randomElement($equipements))
                 ->addEquipement($faker->randomElement($equipements))
                 ->addService($faker->randomElement($services));
 

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel Equipement
+{% endblock %}
+
+{% block body %}
+	<div class="bg-light p-5 rounded">
+
+		<h1>Créer un équipement</h1>
+		{{ form_start(form)}}
+		<div class="row">
+			<div class="col-9">
+				{{ form_row(form.nom) }}
+			</div>
+			<div class="col-3">
+				<input type="submit" value="Créer" class="btn btn-success">
+			</div>
+		</div>
+		{{ form_end(form)}}
+		<a href="{{ path('equipement_index') }}" class="btn btn-dark">Retourner à la liste</a>
+	</div>
+{% endblock %}

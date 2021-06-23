@@ -64,10 +64,13 @@ class GiteRepository extends ServiceEntityRepository
                 ->andWhere('g.animaux = :animaux')
                 ->setParameter('animaux', $search->getAnimaux());
         }
-        if ($search->getEquipements()->count() > 0) {
-            $k = 0;
-            foreach ($search->getEquipements() as $equipement) {
-                $k++;
+        if ($search->getVille()) {
+            $query = $query
+                ->andWhere('g.ville LIKE :city')
+                ->setParameter('city', '%' . $search->getVille() . '%');
+        }
+        if ($search->getEquipements()) {
+            foreach ($search->getEquipements() as $k => $equipement) {
                 $query = $query
                     ->andWhere(":equipement$k MEMBER OF g.equipements")
                     ->setParameter("equipement$k", $equipement);

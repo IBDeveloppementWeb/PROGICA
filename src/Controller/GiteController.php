@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Gite;
+use App\Entity\Contact;
+use App\Form\ContactType;
 use App\Entity\GiteSearch;
 use App\Form\GiteSearchType;
 use App\Repository\GiteRepository;
@@ -54,14 +56,23 @@ class GiteController extends AbstractController
      * @Route("/gite/{id}", name="gite_show")
      */
 
-    public function show($id): Response
+    public function show($id, Request $request): Response
     {
-
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
         $gite = $this->repo->find($id);
+        $contact->setGite($gite);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 'Votre email a bien été encoyé');
+            return $this->redirectToRoute('gite_show');
+        }
 
         return $this->render('gite/show.html.twig', [
             'controller_name' => 'GiteController',
-            'gite' => $gite
+            'gite' => $gite,
+            'form' => $form->createView()
         ]);
     }
 }

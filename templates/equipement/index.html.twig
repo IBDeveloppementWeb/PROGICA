@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Equipement index
+{% endblock %}
+
+{% block body %}
+	<div class="bg-light p-5 rounded">
+
+		<h1>Liste des équipements</h1>
+		<a href="{{ path('equipement_new') }}" class="btn btn-success">Créer un équipement</a>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>EQUIPEMENT</th>
+					<th>ACTIONS</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for equipement in equipements %}
+					<tr>
+						<td>{{ equipement.id }}</td>
+						<td>{{ equipement.nom }}</td>
+						<td>
+							<a href="{{ path('equipement_edit', {'id': equipement.id}) }}" class="btn btn-primary">Modifier</a>
+							<a href="{{ path('equipement_delete', {'id': equipement.id}) }}" class="btn btn-danger">Supprimer</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</div>
+{% endblock %}

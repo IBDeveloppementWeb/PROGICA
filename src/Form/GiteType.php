@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -46,9 +47,9 @@ class GiteType extends AbstractType
                 'required' => false,
                 'label' => 'Description du gite'
             ])
-            ->add('image', TextType::class, [
+            ->add('imageFile', FileType::class, [
                 'required' => false,
-                'label' => 'Image'
+                'label' => 'Ajouter une image'
             ])
             ->add('tarifAnimaux', NumberType::class, [
                 'required' => false,

@@ -13,8 +13,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
@@ -59,7 +57,15 @@ class GiteSearchType extends AbstractType
                 'required' => false,
                 'class' => Equipement::class,
                 'choice_label' => 'nom',
+                'label' => 'Filtrer par équipement',
                 'multiple' => true
+            ])
+            ->add('ville', TextType::class, [
+                'required' => false,
+                'label' => 'Filtrer par ville',
+                'attr' => [
+                    'placeholder' => 'Entrer une ville'
+                ]
             ]);
     }
 

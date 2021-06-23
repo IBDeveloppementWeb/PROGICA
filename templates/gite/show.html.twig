@@ -6,7 +6,19 @@
 {% block body %}
 
 	<article class="bg-light p-5 rounded text-center">
-		<img src="{{ gite.image }}" style="width:1200px;height:600px;" alt="">
+
+		<div class="row">
+			<div class="col-12">
+				{% if gite.imageName %}
+					<img src="{{ vich_uploader_asset(gite, "imageFile")}}" style="width:1200px;height:600px;" alt="">
+				{% else %}
+					<img src="/images/gites/gite_default.jpg" alt="..." style="width:1200px; height:600px;">
+				{% endif %}
+			</div>
+
+
+		</div>
+		<hr>
 		<h2>{{ gite.nom }}</h2>
 
 		<h6>{{ gite.ville }}
@@ -18,62 +30,101 @@
 		<div class="content text-center">
 			{{ gite.description }}
 			<hr>
+			<div class="row">
+				<div class="col-8">
+					<table class="table table-striped">
+						<tbody>
+							<tr>
+								<th>Surface</th>
+								<th>{{ gite.surface }}
+									m2</th>
+							</tr>
+							<tr>
+								<th>Nombre de chambre(s)</th>
+								<th>{{ gite.chambre }}
+								</th>
+							</tr>
+							<tr>
+								<th>Nombre de couchage(s)</th>
+								<th>{{ gite.couchage }}
+								</th>
+							</tr>
+							<tr>
+								<th>Animaux acceptés</th>
+								<th>{{ gite.animaux ? 'Oui' : 'Non' }}
+								</th>
+							</tr>
+							{% if gite.animaux == true %}
+								<tr>
+									<th>Tarif Animaux</th>
+									<th>{{ gite.tarifAnimaux }}
+										€ / semaine
+									</th>
+								</tr>
+							{% endif %}
+							<tr>
+								<th>Basse Saison</th>
+								<th>{{ gite.tarifBasseSaison }}
+									€ / semaine</th>
+							</tr>
+							<tr>
+								<th>Haute Saison</th>
+								<th>{{ gite.tarifHauteSaison }}
+									€ / semaine</th>
+							</tr>
+							<tr>
+								<th>Equipements disponibles
+									{% for equipement in gite.equipements %}
+										<li>{{equipement.nom}}</li>
+									{% endfor %}
+								</th>
+								<th>Services disponibles
+									{% for service in gite.services %}
+										<li>{{service.nom}}</li>
+									{% endfor %}
+								</th>
+							</tr>
+						</tbody>
 
-			<table class="table table-striped">
-				<tbody>
-					<tr>
-						<th>Surface</th>
-						<th>{{ gite.surface }}
-							m2</th>
-					</tr>
-					<tr>
-						<th>Nombre de chambre(s)</th>
-						<th>{{ gite.chambre }}
-						</th>
-					</tr>
-					<tr>
-						<th>Nombre de couchage(s)</th>
-						<th>{{ gite.couchage }}
-						</th>
-					</tr>
-					<tr>
-						<th>Animaux acceptés</th>
-						<th>{{ gite.animaux ? 'Oui' : 'Non' }}
-						</th>
-					</tr>
-					{% if gite.animaux == true %}
-						<tr>
-							<th>Tarif Animaux</th>
-							<th>{{ gite.tarifAnimaux }}
-								€ / semaine
-							</th>
-						</tr>
-					{% endif %}
-					<tr>
-						<th>Basse Saison</th>
-						<th>{{ gite.tarifBasseSaison }}
-							€ / semaine</th>
-					</tr>
-					<tr>
-						<th>Haute Saison</th>
-						<th>{{ gite.tarifHauteSaison }}
-							€ / semaine</th>
-					</tr>
-					<tr>
-						<th>Equipements disponibles
-							{% for equipement in gite.equipements %}
-								<li>{{equipement.nom}}</li>
-							{% endfor %}
-						</th>
-						<th>Services disponibles
-							{% for service in gite.services %}
-								<li>{{service.nom}}</li>
-							{% endfor %}
-						</th>
-					</tr>
-				</tbody>
+					</table>
+				</div>
+				<div class="col-4">
+					<div class="bg-dark p-4 rounded text-white">
 
-			</table>
+						<h3>Contacter le propriétaire</h3>
+						{{form_start(form)}}
+						<div class="row">
+							<div class="col-6">
+								{{form_row(form.prenom)}}
+							</div>
+							<div class="col-6">
+								{{form_row(form.nom)}}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								{{form_row(form.numTel)}}
+							</div>
+							<div class="col-6">
+								{{form_row(form.email)}}
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								{{form_row(form.message)}}
+							</div>
+							<div class="row">
+
+								<div class="col">
+									<button class="btn btn-light">Envoyer</button>
+								</div>
+							</div>
+
+						</div>
+						{{form_end(form)}}
+					</div>
+				</div>
+			</div>
 		</div>
 	</article>
 {% endblock %}

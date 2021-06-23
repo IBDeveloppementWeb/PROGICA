@@ -37,6 +37,11 @@ class GiteSearch
      */
     private $equipements;
 
+    /**
+     * @var string|null
+     */
+    private $ville;
+
     public function __construct()
     {
         $this->equipements = new ArrayCollection();
@@ -182,6 +187,30 @@ class GiteSearch
     public function setAnimaux($animaux)
     {
         $this->animaux = $animaux;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of ville
+     *
+     * @return  string|null
+     */
+    public function getVille()
+    {
+        return $this->ville;
+    }
+
+    /**
+     * Set the value of ville
+     *
+     * @param  string|null  $ville
+     *
+     * @return  self
+     */
+    public function setVille($ville)
+    {
+        $this->ville = $ville;
 
         return $this;
     }
