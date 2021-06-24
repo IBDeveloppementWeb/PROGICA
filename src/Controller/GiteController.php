@@ -7,6 +7,7 @@ use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Entity\GiteSearch;
 use App\Form\GiteSearchType;
+use App\Notification\ContactNotification;
 use App\Repository\GiteRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,7 +42,7 @@ class GiteController extends AbstractController
         $gites = $paginator->paginate(
             $data,
             $request->query->getInt('page', 1),
-            6
+            12
         );
 
         return $this->render('gite/index.html.twig', [
@@ -56,7 +57,7 @@ class GiteController extends AbstractController
      * @Route("/gite/{id}", name="gite_show")
      */
 
-    public function show($id, Request $request): Response
+    public function show($id, Request $request, ContactNotification $notification): Response
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
@@ -65,8 +66,11 @@ class GiteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $notification->notify($contact);
             $this->addFlash('success', 'Votre email a bien été encoyé');
-            return $this->redirectToRoute('gite_show');
+            return $this->redirectToRoute('gite_show', [
+                'id' => $gite->getId(),
+            ]);
         }
 
         return $this->render('gite/show.html.twig', [

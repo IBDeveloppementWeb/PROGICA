@@ -7,7 +7,9 @@ use App\Entity\Gite;
 use App\Entity\Service;
 use App\Entity\Equipement;
 use App\Entity\GiteSearch;
+use App\Repository\GiteRepository;
 use Doctrine\DBAL\Types\StringType;
+use App\Repository\EquipementRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -23,28 +25,28 @@ class GiteSearchType extends AbstractType
         $builder
             ->add('minSurface', IntegerType::class, [
                 'required' => false,
-                'label' => 'Filter par surface',
+                'label' => 'Filtrer par surface',
                 'attr' => [
                     'placeholder' => 'Surface minimale'
                 ]
             ])
             ->add('minCouchage', IntegerType::class, [
                 'required' => false,
-                'label' => 'Filter par couchage',
+                'label' => 'Filtrer par couchage',
                 'attr' => [
                     'placeholder' => 'Couchages minimum'
                 ]
             ])
             ->add('minChambre', IntegerType::class, [
                 'required' => false,
-                'label' => 'Filter par chambre',
+                'label' => 'Filtrer par chambre',
                 'attr' => [
                     'placeholder' => 'Chambres minimum'
                 ]
             ])
             ->add('maxTarif', IntegerType::class, [
                 'required' => false,
-                'label' => 'Filter par tarif',
+                'label' => 'Filtrer par tarif',
                 'attr' => [
                     'placeholder' => 'Tarif maximum'
                 ]
@@ -58,7 +60,11 @@ class GiteSearchType extends AbstractType
                 'class' => Equipement::class,
                 'choice_label' => 'nom',
                 'label' => 'Filtrer par équipement',
-                'multiple' => true
+                'multiple' => true,
+                'query_builder' => function (EquipementRepository $eq) {
+                    return $eq->createQueryBuilder('e')
+                        ->orderBy('e.nom', 'ASC');
+                }
             ])
             ->add('ville', TextType::class, [
                 'required' => false,

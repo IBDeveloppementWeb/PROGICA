@@ -5,7 +5,7 @@
 
 {% block body %}
 	<div class="bg-light p-5 rounded">
-		<div class="bg-light text-center">
+		<div class="bg-light text-center mt-3">
 			<h1>Nos gites</h1>
 		</div>
 		<div class="bg-dark p-5 rounded text-white mb-1">
@@ -34,7 +34,7 @@
 					{{ form_row(form.animaux) }}
 				</div>
 				<div class="col-3">
-					<button class="btn btn-light">Filter les gites</button>
+					<button class="btn btn-light">Filtrer les gites</button>
 				</div>
 			</div>
 			{{ form_end(form)}}
@@ -43,8 +43,8 @@
 
 			<div class="row row-cols-1 row-cols-md-3 g-3">
 				{% for gite in gites %}
-					<div class="col">
-						<div class="card">
+					<div class="col-3">
+						<div class="card" data-aos="flip-left" data-aos-duration="2000" data-aos-anchor-placement="bottom-bottom">
 							{% if gite.imageName %}
 								<img src="{{ vich_uploader_asset(gite, "imageFile")}}" class="card-img-top" alt="..." style="width:100%; height:300px;">
 							{% else %}

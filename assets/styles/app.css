@@ -1,0 +1,15 @@
+body {
+    background-color: #252A2E;
+}
+
+.card:hover {
+    transform: scale(0.9);
+}
+
+.pagination {
+    color: #252A2E;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}

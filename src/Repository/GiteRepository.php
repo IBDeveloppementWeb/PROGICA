@@ -28,7 +28,7 @@ class GiteRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('g')
             ->orderBy('g.addAt', 'DESC')
-            ->setMaxResults(3)
+            ->setMaxResults(8)
             ->getQuery()
             ->getResult();
     }
