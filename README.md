@@ -24,7 +24,7 @@ Vous trouverez le cahier des charges du projet ici :
 - Insérer de l'animation avec Webpack
 
 ### Installation sur votre machine
-- git clone "https://github.com/SilverVladDev/PROGICA.git"
+- git clone https://github.com/SilverVladDev/PROGICA.git
 - composer update
 - npm install
 - Vérifier fichier .env pour faire la modification de la DATABASE_URL
