@@ -20,4 +20,21 @@ Vous trouverez le cahier des charges du projet ici :
      - Si les animaux sont accepté 
      - Par Ville
      - Par équipement 
+- Mettre en place un formulaire de contact avec Maildev
+- Insérer de l'animation avec Webpack
 
+### Installation sur votre machine
+- git clone 
+- composer update
+- npm install
+- Vérifier fichier .env pour faire la modification de la DATABASE_URL
+- php bin/console doctrine:database:create
+- php bin/console doctrine:migration:migrate
+- php bin/console doctrine:fixtures:load
+
+### Lancer le site
+- php -S localhost:8000 -t public
+- npm run dev-server
+
+### Lancer le serveur SMTP
+- maildev
