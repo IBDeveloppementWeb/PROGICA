@@ -61,6 +61,7 @@ class GiteSearchType extends AbstractType
                 'choice_label' => 'nom',
                 'label' => 'Filtrer par équipement',
                 'multiple' => true,
+                'expanded' => true,
                 'query_builder' => function (EquipementRepository $eq) {
                     return $eq->createQueryBuilder('e')
                         ->orderBy('e.nom', 'ASC');

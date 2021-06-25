@@ -16,5 +16,5 @@ import AOS from 'aos';
 AOS.init();
 
 $(function() {
-    $('.select-tags').select2();
+    $('.form-select').select2();
 });

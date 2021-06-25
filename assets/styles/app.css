@@ -13,3 +13,20 @@ body {
 .btn:hover {
     transform: scale(1.1);
 }
+
+#equipements .form-check {
+    float: left;
+    width: 50%;
+    /* 2 colonnes */
+}
+
+#equipements .form-check label {
+    float: left;
+    text-align: left;
+    width: 120px;
+}
+
+#equipements .form-check input {
+    float: left;
+    margin-right: 5px;
+}

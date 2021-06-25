@@ -11,31 +11,38 @@
 		<div class="bg-dark p-5 rounded text-white mb-1">
 			{{ form_start(form)}}
 			<div class="row">
-				<div class="col-3">
+				<div class="col-4">
+					{{ form_row(form.ville) }}
+				</div>
+				<div class="col-4">
 					{{ form_row(form.minSurface) }}
 				</div>
-				<div class="col-3">
+				<div class="col-4">
+					{{ form_row(form.maxTarif) }}
+				</div>
+				<div class="col-4">
+					{{ form_row(form.equipements) }}
+				</div>
+				<div class="col-4">
 					{{ form_row(form.minChambre) }}
 				</div>
-				<div class="col-3">
+				<div class="col-4">
 					{{ form_row(form.minCouchage) }}
 				</div>
 
-				<div class="col-3">
-					{{ form_row(form.maxTarif) }}
-				</div>
-				<div class="col-3">
-					{{ form_row(form.ville) }}
-				</div>
-				<div class="col-3">
-					{{ form_row(form.equipements) }}
-				</div>
-				<div class="col-3">
+
+				<div class="col-2">
 					{{ form_row(form.animaux) }}
 				</div>
+
+				<div class="col-2"></div>
+				<div class="col-2"></div>
+				<div class="col-2"></div>
+
 				<div class="col-3">
 					<button class="btn btn-light">Filtrer les gites</button>
 				</div>
+
 			</div>
 			{{ form_end(form)}}
 		</div>
