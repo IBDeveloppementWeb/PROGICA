@@ -33,7 +33,7 @@
 						</li>
 						{% if is_granted('ROLE_ADMIN') %}
 							<li class="nav-item">
-								<a class="nav-link {% if controller_name == 'AdminController' %} active {% endif %}" href="{{ path('admin.index')}}">Administration des gites</a>
+								<a class="nav-link {% if controller_name == 'AdminController' %} active {% endif %}" href="{{ path('admin_index')}}">Administration des gites</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link {% if controller_name == 'EquipementController' %} active {% endif %}" href="{{ path('equipement_index')}}">Gérer les équipements</a>

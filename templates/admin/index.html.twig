@@ -23,7 +23,7 @@
 			</div>
 		{% endfor %}
 
-		<a href="{{ path('admin.new') }}" class="btn btn-success">Ajouter un gite</a>
+		<a href="{{ path('admin_new') }}" class="btn btn-success">Ajouter un gite</a>
 		<div class="row">
 			<table class="table table-striped">
 				<thead>
@@ -41,8 +41,8 @@
 							<th>{{gite.ville}}</th>
 							<th>{{ (gite.description|length > 100 ? gite.description|slice(0, 100) ~ '…' : gite.description) }}</th>
 							<th>
-								<a href="{{ path('admin.edit', {'id': gite.id}) }}" class="btn btn-primary">Modifier</a>
-								<a href="{{ path('admin.delete', {'id': gite.id}) }}" class="btn btn-danger">Supprimer</a>
+								<a href="{{ path('admin_edit', {'id': gite.id}) }}" class="btn btn-primary">Modifier</a>
+								<a href="{{ path('admin_delete', {'id': gite.id}) }}" class="btn btn-danger">Supprimer</a>
 							</th>
 						</tr>
 					{% endfor %}

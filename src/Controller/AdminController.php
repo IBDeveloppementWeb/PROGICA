@@ -24,7 +24,7 @@ class AdminController extends AbstractController
         $this->em = $em;
     }
     /**
-     * @route("/admin", name="admin.index")
+     * @route("/admin", name="admin_index")
      */
 
     public function index(Request $request, PaginatorInterface $paginator): Response
@@ -45,7 +45,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     *  @Route("/admin/new", name="admin.new", methods="GET|POST")
+     *  @Route("/admin/new", name="admin_new", methods="GET|POST")
      */
     public function new(Request $request)
     {
@@ -58,7 +58,7 @@ class AdminController extends AbstractController
             $this->em->flush();
             $this->addFlash('success', 'Bien ajouté avec succès');
 
-            return $this->redirectToRoute('admin.index');
+            return $this->redirectToRoute('admin_index');
         }
         return $this->render('admin/new.html.twig', [
             'controller_name' => 'AdminController',
@@ -67,7 +67,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     *  @Route("/admin/edit/{id}", name="admin.edit", methods="GET|POST")
+     *  @Route("/admin/edit/{id}", name="admin_edit", methods="GET|POST")
      */
     public function edit($id, Request $request)
     {
@@ -82,7 +82,7 @@ class AdminController extends AbstractController
             $this->em->flush();
             $this->addFlash('primary', 'Bien modifié avec succès');
 
-            return $this->redirectToRoute('admin.index');
+            return $this->redirectToRoute('admin_index');
         }
         return $this->render('admin/edit.html.twig', [
             'controller_name' => 'AdminController',
@@ -92,7 +92,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     *  @Route("/admin/delete/{id}", name="admin.delete")
+     *  @Route("/admin/delete/{id}", name="admin_delete")
      */
     public function delete($id)
     {
@@ -103,6 +103,6 @@ class AdminController extends AbstractController
         $this->em->flush();
         $this->addFlash('danger', 'Bien supprimé avec succès');
 
-        return $this->redirectToRoute('admin.index');
+        return $this->redirectToRoute('admin_index');
     }
 }
