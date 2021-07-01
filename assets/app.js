@@ -34,7 +34,7 @@ if(inputAdresse !== null){
     })
 }
 
-// Leaflet
+// Leaflet & Mapbox
 let map = document.querySelector('#map')
 if (map !== null){
     let icon = L.icon({
@@ -44,7 +44,7 @@ if (map !== null){
     let center = [map.dataset.lat, map.dataset.lng];
     map = L.map('map').setView(center, 18)
     let token ='pk.eyJ1Ijoic2lsdmVydmxhZCIsImEiOiJja3FqaG95aWgwMTFuMm5wbHNtcGFpazZ5In0.sNen8GcYqjmecbxvQm0mKQ'
-    L.tileLayer(`https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/{z}/{x}/{y}.png?access_token=${token}`, {
+    L.tileLayer(`https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}.png?access_token=${token}`, {
         maxZoom: 18,
         minZoom: 5
         }).addTo(map)
